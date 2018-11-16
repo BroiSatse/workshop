@@ -3,12 +3,12 @@ module FundsTransferComponent
     module Events
       module Completed
         def self.example
-          initiated = FundsTransferComponent::Messages::Events::Completed.build
+          completed = FundsTransferComponent::Messages::Events::Completed.build
 
-          initiated.funds_transfer_id = FundsTransfer.id
-          initiated.time = Time::Effective.example
+          completed.funds_transfer_id = FundsTransfer.id
+          completed.time = Time::Effective.example
 
-          initiated
+          completed
         end
       end
     end

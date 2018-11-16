@@ -32,5 +32,10 @@ module FundsTransferComponent
       funds_transfer.id = completed.funds_transfer_id
       funds_transfer.completion_time = Clock.parse(completed.time)
     end
+
+    apply Failed do |failed|
+      funds_transfer.id = failed.funds_transfer_id
+      funds_transfer.completion_time = Clock.parse(failed.time)
+    end
   end
 end
