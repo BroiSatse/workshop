@@ -11,7 +11,8 @@ context "Handle Events" do
       deposited.metadata.correlation_stream_name = transfer_stream_name
 
       transfer = Controls::FundsTransfer.example
-      transfer.
+      refute(transfer.completion_time.nil?)
+
       handler.store.add(funds_transfer_id, transfer)
 
       handler.(deposited)

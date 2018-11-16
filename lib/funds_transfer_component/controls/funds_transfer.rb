@@ -40,7 +40,7 @@ module FundsTransferComponent
           funds_transfer = FundsTransfer.example
           funds_transfer.withdrawn_time = nil
           funds_transfer.deposited_time = nil
-          funds_transfer.completed_at = nil
+          funds_transfer.completion_time = nil
           funds_transfer
         end
       end

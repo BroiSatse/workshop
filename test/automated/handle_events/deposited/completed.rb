@@ -10,7 +10,7 @@ context "Handle Events" do
       transfer_stream_name = "fundsTransfer-#{funds_transfer_id}"
       deposited.metadata.correlation_stream_name = transfer_stream_name
 
-      transfer = Controls::FundsTransfer.example
+      transfer = Controls::FundsTransfer::Initiated.example
       original_correlation_stream = transfer.original_correlation_stream = 'SomeCorrelation-123'
       handler.store.add(funds_transfer_id, transfer)
 

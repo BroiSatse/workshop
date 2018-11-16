@@ -51,6 +51,8 @@ module FundsTransferComponent
         transfer_id = deposited.funds_transfer_id
         transfer = store.fetch transfer_id
 
+        return if transfer.completed?
+
         stream_name = stream_name(transfer_id)
         completed = Completed.follow(deposited, copy: %i[funds_transfer_id])
         completed.time = clock.iso8601
