@@ -12,7 +12,8 @@ module FundsTransferComponent
         :deposit_account_id,
         :amount,
         :withdraw_id,
-        :deposit_id
+        :deposit_id,
+        :original_correlation_stream
       ])
 
       initiated_time = Clock.parse(initiated.time)

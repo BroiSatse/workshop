@@ -8,6 +8,8 @@ module FundsTransferComponent
       include Messages::Events
 
       dependency :store, Store
+      dependency :clock, Clock::UTC
+      dependency :write, Messaging::Postgres::Write
 
       dependency :withdraw, ::Account::Client::Withdraw
       dependency :deposit, ::Account::Client::Deposit
@@ -43,6 +45,17 @@ module FundsTransferComponent
           amount: transfer.amount,
           previous_message: withdrawn
         )
+      end
+
+      handle Deposited do |deposited|
+        transfer_id = deposited.funds_transfer_id
+        transfer = store.fetch transfer_id
+
+        stream_name = stream_name(transfer_id)
+        completed = Completed.follow(deposited, copy: %i[funds_transfer_id])
+        completed.time = clock.iso8601
+        completed.metadata.correlation_stream_name = transfer.original_correlation_stream
+        write.(completed, stream_name)
       end
     end
   end

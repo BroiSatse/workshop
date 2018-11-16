@@ -10,6 +10,7 @@ module FundsTransferComponent
           initiated.deposit_account_id = Deposit::Account.id
           initiated.withdrawal_id = Withdrawal.id
           initiated.amount = Money.example
+          initiated.original_correlation_stream = "SomeStream-#{ID.example}"
 
           initiated.time = Time::Effective.example
           initiated.processed_time = Time::Processed.example

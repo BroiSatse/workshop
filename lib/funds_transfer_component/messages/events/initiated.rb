@@ -12,6 +12,7 @@ module FundsTransferComponent
         attribute :amount, Numeric
         attribute :time, String
         attribute :processed_time, String
+        attribute :original_correlation_stream, String
       end
     end
   end

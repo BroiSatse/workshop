@@ -9,6 +9,7 @@ context "Projection" do
     assert(funds_transfer.deposit_account_id.nil?)
     assert(funds_transfer.amount.nil?)
     assert(funds_transfer.initiated_time.nil?)
+    assert(funds_transfer.original_correlation_stream.nil?)
 
     initiated = Controls::Events::Initiated.example
 
@@ -17,6 +18,7 @@ context "Projection" do
     deposit_account_id = initiated.deposit_account_id or fail
     amount = initiated.amount or fail
     initiated_time_iso8601 = initiated.time or fail
+    original_correlation_stream = initiated.original_correlation_stream or fail
 
     Projection.(funds_transfer, initiated)
 
@@ -34,6 +36,10 @@ context "Projection" do
 
     test "Amount" do
       assert(funds_transfer.amount == amount)
+    end
+
+    test "OriginalCorrelationStream" do
+      assert(funds_transfer.original_correlation_stream == original_correlation_stream)
     end
 
     test "Initiated time is converted and set" do

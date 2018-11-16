@@ -11,6 +11,7 @@ module FundsTransferComponent
     attribute :initiated_time, Time
     attribute :withdrawn_time, Time
     attribute :deposited_time, Time
+    attribute :original_correlation_stream, String
 
     def initiated?
       !initiated_time.nil?

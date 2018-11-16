@@ -32,6 +32,7 @@ module FundsTransferComponent
         end
 
         initiated = Initiated.follow(transfer)
+        initiated.original_correlation_stream = transfer.metadata.correlation_stream_name
 
         initiated.processed_time = clock.iso8601
 

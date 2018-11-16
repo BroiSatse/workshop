@@ -19,6 +19,8 @@ context "Handle Commands" do
       amount = transfer.amount or fail
       effective_time = transfer.time or fail
 
+      original_correlation_stream = transfer.metadata.correlation_stream_name = 'HelloFromOtherService-123'
+
       funds_transfer_stream_name = "fundsTransfer-#{funds_transfer_id}"
 
       handler.(transfer)
@@ -74,6 +76,10 @@ context "Handle Commands" do
           processed_time_iso8601 = Clock.iso8601(processed_time)
 
           assert(initiated.processed_time == processed_time_iso8601)
+        end
+
+        test 'original_correlation_stream' do
+          assert(initiated.original_correlation_stream == original_correlation_stream)
         end
       end
 
