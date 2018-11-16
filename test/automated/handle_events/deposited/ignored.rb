@@ -11,7 +11,7 @@ context "Handle Events" do
       deposited.metadata.correlation_stream_name = transfer_stream_name
 
       transfer = Controls::FundsTransfer.example
-      original_correlation_stream = transfer.original_correlation_stream = 'SomeCorrelation-123'
+      transfer.
       handler.store.add(funds_transfer_id, transfer)
 
       handler.(deposited)
@@ -22,22 +22,8 @@ context "Handle Events" do
         event.instance_of?(FundsTransfer::Messages::Events::Completed)
       end
 
-      test "Completed event is written" do
-        refute(completed.nil?)
-      end
-
-      test "Written to the funds transfer stream" do
-        written_to_stream = writer.written?(completed) do |stream_name|
-          stream_name == transfer_stream_name
-        end
-
-        assert(written_to_stream)
-      end
-
-      context 'Metadata' do
-        test 'Restored correlation stream to stream stored in entity' do
-          assert(completed.metadata.correlation_stream_name == original_correlation_stream)
-        end
+      test "Completed event is not written" do
+        assert(completed.nil?)
       end
     end
   end

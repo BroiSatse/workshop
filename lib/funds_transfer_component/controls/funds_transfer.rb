@@ -12,6 +12,7 @@ module FundsTransferComponent
         funds_transfer.initiated_time = Time::Effective::Raw.example
         funds_transfer.withdrawn_time = Time::Effective::Raw.example
         funds_transfer.deposited_time = Time::Effective::Raw.example
+        funds_transfer.completion_time = Time::Effective::Raw.example
 
         funds_transfer
       end
@@ -39,6 +40,7 @@ module FundsTransferComponent
           funds_transfer = FundsTransfer.example
           funds_transfer.withdrawn_time = nil
           funds_transfer.deposited_time = nil
+          funds_transfer.completed_at = nil
           funds_transfer
         end
       end
