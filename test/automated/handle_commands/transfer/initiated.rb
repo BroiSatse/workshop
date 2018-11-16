@@ -14,6 +14,8 @@ context "Handle Commands" do
       funds_transfer_id = transfer.funds_transfer_id or fail
       withdrawal_account_id = transfer.withdrawal_account_id or fail
       deposit_account_id = transfer.deposit_account_id or fail
+      withdrawal_id = transfer.withdrawal_id or fail
+      deposit_id = transfer.deposit_id or fail
       amount = transfer.amount or fail
       effective_time = transfer.time or fail
 
@@ -50,6 +52,14 @@ context "Handle Commands" do
 
         test "deposit_account_id" do
           assert(initiated.deposit_account_id == deposit_account_id)
+        end
+
+        test "withdrawal_id" do
+          assert(initiated.withdrawal_id == withdrawal_id)
+        end
+
+        test "deposit_id" do
+          assert(initiated.deposit_id == deposit_id)
         end
 
         test "amount" do
