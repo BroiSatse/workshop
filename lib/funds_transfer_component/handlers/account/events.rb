@@ -64,6 +64,26 @@ module FundsTransferComponent
 
           write.(deposited, stream_name, expected_version: version)
         end
+
+        handle ::Account::Client::Messages::Events::WithdrawalRejected do |rejected|
+          correlation_stream_name = rejected.metadata.correlation_stream_name
+          funds_transfer_id = Messaging::StreamName.get_id(correlation_stream_name)
+
+          funds_transfer, version = store.fetch(funds_transfer_id, include: :version)
+
+          return if funds_transfer.completed?
+
+          failed = Failed.build
+          failed.metadata.follow(rejected.metadata)
+          failed.funds_transfer_id = funds_transfer_id
+          failed.reason = 'Withdrawal rejected'
+          failed.time = clock.iso8601
+          failed.metadata.correlation_stream_name = funds_transfer.original_correlation_stream
+
+          stream_name = stream_name(funds_transfer_id)
+
+          write.(failed, stream_name, expected_version: version)
+        end
       end
     end
   end
